@@ -15,32 +15,42 @@ aws_profile_color=${yellow_bold}
 tf_version_color=${blue_bold}
 git_branch_color=${green_bold}
 
+# Define icons
+root_icon=""
+user_icon=""
+computer_icon=""
+folder_icon=""
+aws_icon=""
+terraform_icon=""
+git_icon=""
+arrow_icon=""
+
 prompt_user() {
   if [[ $UID -eq 0 ]]; then
-    echo -n "${root_icon_colour}${default} %n "
+    echo -n "${root_icon_colour}${root_icon}${default} %n "
   else
-    echo -n "${icon_colour}${default}  %n "
+    echo -n "${icon_colour}${user_icon}${default}  %n "
   fi
 }
 
 prompt_host() {
-  echo -n "${icon_colour}${default}  %m "
+  echo -n "${icon_colour}${computer_icon}${default}  %m "
 }
 
 prompt_dir() {
-  echo -n "${icon_colour}${default}  %~ "
+  echo -n "${icon_colour}${folder_icon}${default}  %~ "
 }
 
 prompt_aws_profile() {
   if (( ${+AWS_PROFILE} )); then
-    echo -n "${icon_colour}${default}  ${aws_profile_color}$AWS_PROFILE${default} "
+    echo -n "${icon_colour}${aws_icon}${default}  ${aws_profile_color}$AWS_PROFILE${default} "
   fi
 }
 
 prompt_tf_version() {
   if [[ -f ".terraform-version" ]]; then
     TF_VERSION=$(cat .terraform-version)
-    echo -n "${icon_colour}${default}  ${tf_version_color}$TF_VERSION${default} "
+    echo -n "${icon_colour}${terraform_icon}${default}  ${tf_version_color}$TF_VERSION${default} "
   fi
 }
 
@@ -50,7 +60,7 @@ prompt_git() {
 
   if [[ $? -eq 0 ]]; then
     # Output the branch
-    GIT_PS="${icon_colour}${default} ${git_branch_color}${GIT_BRANCH}${default}"
+    GIT_PS="${icon_colour}${git_icon}${default} ${git_branch_color}${GIT_BRANCH}${default}"
 
     # Get the git status
     GIT_STATUS=$(git status)
@@ -77,9 +87,9 @@ prompt_break() {
 
 prompt_arrow() {
   if [ ${RETVAL} -eq 0 ]; then
-    echo "${icon_colour}${default}"
+    echo "${icon_colour}${arrow_icon}${default}"
   else
-    echo "${non_zero_return_colour}${default}"
+    echo "${non_zero_return_colour}${arrow_icon}${default}"
   fi
 }
 
