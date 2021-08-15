@@ -1,0 +1,8 @@
+# SC2148: Tips depend on target shell and yours is unknown. Add a shebang or a 'shell' directive.
+# SC2181: Check exit code directly with e.g. 'if mycmd;', not indirectly with $?.
+# SC2016: Expressions don't expand in single quotes, use double quotes for that.
+# SC2034: PROMPT appears unused. Verify use (or export if used externally).
+disable=SC2148,SC2181,SC2016,SC2034
+
+# Suggest ${VAR} in place of $VAR
+enable=require-variable-braces
