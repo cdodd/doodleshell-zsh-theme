@@ -26,7 +26,7 @@ git_icon=""
 arrow_icon=""
 
 prompt_user() {
-  if [[ $UID -eq 0 ]]; then
+  if [[ ${UID} -eq 0 ]]; then
     echo -n "${root_icon_colour}${root_icon}${default} %n "
   else
     echo -n "${icon_colour}${user_icon}${default}  %n "
@@ -43,14 +43,14 @@ prompt_dir() {
 
 prompt_aws_profile() {
   if (( ${+AWS_PROFILE} )); then
-    echo -n "${icon_colour}${aws_icon}${default}  ${aws_profile_color}$AWS_PROFILE${default} "
+    echo -n "${icon_colour}${aws_icon}${default}  ${aws_profile_color}${AWS_PROFILE}${default} "
   fi
 }
 
 prompt_tf_version() {
   if [[ -f ".terraform-version" ]]; then
     TF_VERSION=$(cat .terraform-version)
-    echo -n "${icon_colour}${terraform_icon}${default}  ${tf_version_color}$TF_VERSION${default} "
+    echo -n "${icon_colour}${terraform_icon}${default}  ${tf_version_color}${TF_VERSION}${default} "
   fi
 }
 
@@ -66,13 +66,13 @@ prompt_git() {
     GIT_STATUS=$(git status)
 
     # Check for any unstaged changes
-    echo ${GIT_STATUS} | grep -E "Changes not staged for commit|Changed but not updated" > /dev/null 2>&1
+    echo "${GIT_STATUS}" | grep -E "Changes not staged for commit|Changed but not updated" > /dev/null 2>&1
     if [[ $? -eq 0 ]]; then
       GIT_PS="${GIT_PS}${yellow}*${default}"
     fi
 
     # Check for any staged changes
-    echo ${GIT_STATUS} | grep "Changes to be committed" > /dev/null 2>&1
+    echo "${GIT_STATUS}" | grep "Changes to be committed" > /dev/null 2>&1
     if [[ $? -eq 0 ]]; then
       GIT_PS="${GIT_PS}${yellow}+${default}"
     fi
@@ -86,7 +86,7 @@ prompt_break() {
 }
 
 prompt_arrow() {
-  if [ ${RETVAL} -eq 0 ]; then
+  if [ "${RETVAL}" -eq 0 ]; then
     echo "${icon_colour}${arrow_icon}${default}"
   else
     echo "${non_zero_return_colour}${arrow_icon}${default}"
