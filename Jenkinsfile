@@ -7,7 +7,7 @@ pipeline {
     stages {
         stage('Lint') {
             parallel {
-                stage('Terraform') {
+                stage('Shellcheck') {
                     agent {
                         docker {
                             image 'shellcheck:latest'
